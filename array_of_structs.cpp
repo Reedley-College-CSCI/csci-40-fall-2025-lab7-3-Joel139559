@@ -2,45 +2,90 @@
 #include <fstream>
 using namespace std;
 
-// TODO: Step 1 - Define the struct TemperatureRecord
-// It should contain two integer fields: day and temperature.
+struct TemperatureRecord// TODO: Step 1 - Define the struct TemperatureRecord
+int day;
+int temperature;// It should contain two integer fields: day and temperature.
 
 
 // Constants
 const int MAX_DAYS = 31;
 
 // Function Prototypes
-void readTemperatures(???); // TODO: Fix the parameters
-void printTemperatures(const ???);
-TemperatureRecord findMin(const ???);
-TemperatureRecord findMax(const ???);
-double findAverage(const ???);
+void readTemperatures(TemperatureRecord records[], int &size); // TODO: Fix the parameters
+void printTemperatures(const TemperatureRecord records[], int size);
+TemperatureRecord findMin(const TemperatureRecord records[], int size);
+TemperatureRecord findMax(const TemperatureRecord records[], inr size);
+double findAverage(const TemperatureRecord records[], int size);
 
 int main() {
-    // TODO: Step 2 - Declare an array of TemperatureRecord structs (MAX_DAYS size)
+   TemperatureRecord records[MAX_DAYS] // TODO: Step 2 - Declare an array of TemperatureRecord structs (MAX_DAYS size)
     
     int size = 0;  // Actual number of records read
 
-    // TODO: Step 3 - Call readTemperatures() to load data from file
+    readTemperature(records, size);// TODO: Step 3 - Call readTemperatures() to load data from file
 
-    // TODO: Step 4 - Print the temperatures
+    printTemperature(records, size);// TODO: Step 4 - Print the temperatures
 
-    // TODO: Step 5 - Compute and display min, max, and average temperature
+    TemperatureRecord minTemp = findMin(records, size);
+    TemperatureRecord maxTemp = findMax(records, size);
+    double average = findAverage(records, size);// TODO: Step 5 - Compute and display min, max, and average temperature
 
+    cout << "Lowest Temperature: Day " << minTemp.day << ": " << minTemp.temperature << endl;
+    cout << "Highest Temperature: Day " << maxTemp.day << ": " << maxTemp.temperature << endl;
+    cout << "Average Temperature: " << average << endl;
+        
     return 0;
 }
 
-// TODO: Step 6 - Implement readTemperatures()
-// Read from "temps.txt" and store data in the array
+void readTemperature(TemperatureRecord records[], int &size) {// TODO: Step 6 - Implement readTemperatures()
+ifstream file("temps.txt"); 
+if (!file) {
+cout << "Error opening file" << endl;
+return;
+}
+size = 0;
+while (file >> records[size].day >> records[size].temperature) {
+  size++;
+  if (size >=MAX_DAYS) {
+  break;
+  }
+}
+file.close();
+}// Read from "temps.txt" and store data in the array
 
-// TODO: Step 7 - Implement printTemperatures()
-// Print all stored temperatures in a formatted table
+void printTemperatures(const TemperatureRecord records[], int size) {// TODO: Step 7 - Implement printTemperatures()
+     cout << "Day Temperature" << endl;
+for (int i = 0; i < size; i++) {
+cout << records[i].day << " " << records[i].temperature << endl;
+     }
+}// Print all stored temperatures in a formatted table
 
-// TODO: Step 8 - Implement findMin()
-// Return the TemperatureRecord with the lowest temperature
+TemperatureRecord findMin(const TemperatureRecord records[], int size) {
+    TemperatureRecord min = records[0];
+    for (int i = 1; i < size; i++) {
+if (records[i].temperature < min.temperature) {
+min = records[i];
+    }
+}// TODO: Step 8 - Implement findMin()
+return min;// Return the TemperatureRecord with the lowest temperature
 
-// TODO: Step 9 - Implement findMax()
-// Return the TemperatureRecord with the highest temperature
+TemperatureRecord findMax(const TemperatureRecord records[], int size) {
+    TemperatureRecord max = records[0];
+    for (int i = 1; i < size; i++) {
+if (records[i].temperature < max.temperature) {
+max = records[i];
+    } 
+    }// TODO: Step 9 - Implement findMax()
+return max;
+} // Return the TemperatureRecord with the highest temperature
 
-// TODO: Step 10 - Implement findAverage()
+double findAverage(const TemperatureRecord records[], int size) {
+    double total = 0;
+for (int i = 0; i < size; i++) {
+total += records[i].temperature;
+} 
+if (size == 0) return 0;
+return total / size;
+}// TODO: Step 10 - Implement findAverage()
 // Compute and return the average temperature
+
