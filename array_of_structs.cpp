@@ -52,9 +52,9 @@ int main() {
     }
 
 void printTemperatures(const TemperatureRecord records[], int size) { // TODO: Step 7 - Implement printTemperatures()    
-    cout << "Day Temperature ";
+    cout << "Day Temperature: ";
     for (int i = 0; i < size; i++) {
-        cout << records[i].day << " " << records[i].temperature << endl;
+        cout << records[i].day << ", " << records[i].temperature << endl;
     } // Print all stored temperatures in a formatted table
 }
 
@@ -87,6 +87,7 @@ double findAverage(const TemperatureRecord records[], int size) {
     }
     return total / size; // Compute and return the average temperature
 }
+
 
 
 
